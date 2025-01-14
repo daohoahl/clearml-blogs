@@ -11,7 +11,7 @@ from pathlib2 import Path
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 from torchvision.datasets.coco import CocoDetection
-from trains import Task
+from clearml import Task
 
 from SSD.multibox_loss import SSDLoss
 from SSD.ssd_model import SSD
@@ -86,9 +86,9 @@ def get_data_loaders(train_ann_file, test_ann_file, batch_size, test_size, image
     dataset_val = torch.utils.data.Subset(dataset_test, indices_val[:test_size])
 
     # set train and validation data-loaders
-    train_loader = DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=6,
+    train_loader = DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=2,
                               collate_fn=safe_collate, pin_memory=True)
-    val_loader = DataLoader(dataset_val, batch_size=batch_size, shuffle=False, num_workers=6,
+    val_loader = DataLoader(dataset_val, batch_size=batch_size, shuffle=False, num_workers=2,
                             collate_fn=safe_collate, pin_memory=True)
     
     return train_loader, val_loader, labels_enumeration
@@ -256,9 +256,9 @@ if __name__ == "__main__":
     parser.add_argument('--debug_images_interval', type=int, default=500,
                         help='how many batches to wait before logging debug images')
     parser.add_argument('--train_dataset_ann_file', type=str,
-                        default='~/bigdata/coco/annotations/instances_train2017.json',
+                        default='/root/bigdata/coco/annotations/instances_train2017.json',
                         help='annotation file of train dataset')
-    parser.add_argument('--val_dataset_ann_file', type=str, default='~/bigdata/coco/annotations/instances_val2017.json',
+    parser.add_argument('--val_dataset_ann_file', type=str, default='/root/bigdata/coco/annotations/instances_val2017.json',
                         help='annotation file of test dataset')
     parser.add_argument('--input_checkpoint', type=str, default='',
                         help='Loading model weights from this checkpoint.')

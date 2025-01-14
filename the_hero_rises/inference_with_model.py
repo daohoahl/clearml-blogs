@@ -18,7 +18,7 @@ from transforms import get_transform
 from SSD.ssd_model import SSD
 from SSD.multibox_loss import SSDLoss
 
-from trains import Task
+from clearml import Task
 task = Task.init(project_name='Object Detection with TRAINS, Ignite and TensorBoard',
                  task_name='Inference with trained SSD model')
 
