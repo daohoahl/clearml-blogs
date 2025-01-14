@@ -15,7 +15,7 @@ from torchvision.transforms import functional as F
 from PIL import Image
 from transforms import get_transform
 
-from trains import Task
+from clearml import Task
 task = Task.init(project_name='Object Detection with TRAINS, Ignite and TensorBoard',
                  task_name='Inference with trained model')
 
